@@ -1,8 +1,9 @@
 "use strict";
 class Author {
-    constructor(name, email) {
+    constructor(name, email, gender) {
         this.name = name;
         this.email = email;
+        this.gender = gender;
     }
     getName() {
         return this.name;
@@ -13,23 +14,26 @@ class Author {
     setEmail(email) {
         this.email = email;
     }
+    getGender() {
+        return this.gender;
+    }
     toString() {
-        return "Author [name = " + this.name + "email : " + this.email + "]";
+        return `Author[name=${this.name}, email=${this.email}, gender=${this.gender}]`;
     }
 }
 class Book {
-    constructor(name, auther, price, qty = 0) {
+    constructor(name, authors, price, qty = 0) {
         this.qty = 0;
         this.name = name;
-        this.author = author;
+        this.authors = authors;
         this.price = price;
         this.qty = qty;
     }
     getName() {
         return this.name;
     }
-    setAuthors() {
-        return this.author;
+    getAuthors() {
+        return this.authors;
     }
     getPrice() {
         return this.price;
@@ -44,18 +48,13 @@ class Book {
         this.qty = qty;
     }
     toString() {
-        let details = "Book [name = " + this.name + "auther={ ";
-        for (let i = 0; i <= this.author.length; i++) {
-            details += this.author[i].toString() + ",";
-        }
-        return details;
+        let authorDetails = this.authors
+            .map((author) => author.toString())
+            .join(", ");
+        return `Book[name=${this.name}, authors={${authorDetails}}, price=${this.price}, qty=${this.qty}]`;
     }
-    grtAuthernames() {
-        let authorNames = "";
-        for (let i = 0; i <= this.author.length; i++) {
-            authorNames += this.author[i].getName() + ",";
-        }
-        return authorNames;
+    getAuthorNames() {
+        return this.authors.map((author) => author.getName()).join(", ");
     }
 }
 module.exports = { Author, Book };
